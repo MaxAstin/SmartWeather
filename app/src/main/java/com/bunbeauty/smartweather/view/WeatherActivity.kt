@@ -89,7 +89,8 @@ class WeatherActivity : MvpAppCompatActivity(), WeatherView {
     }
 
     override fun showWeather(weatherInfo: WeatherInfo) = runOnUiThread {
-        temperatureText.text = formatDegrees(convertToCalvin(weatherInfo.main.temp))
+        val tempCalvinDegrees = weatherPresenter.convertToCalvin(weatherInfo.main.temp)
+        temperatureText.text = formatDegrees(tempCalvinDegrees)
 
         if (weatherInfo.weather.size > 0) {
             val iconName = weatherInfo.weather[0].icon
@@ -102,12 +103,9 @@ class WeatherActivity : MvpAppCompatActivity(), WeatherView {
 
             stateText.text = weatherInfo.weather[0].description
         }
-        feelsLikeText.text =
-            FEELS_LIKE + formatDegrees(convertToCalvin(weatherInfo.main.feels_like))
-    }
 
-    private fun convertToCalvin(fahrenheitDegrees: Double): Double {
-        return fahrenheitDegrees - 273.15
+        val feelsLikeCalvinDegrees = weatherPresenter.convertToCalvin(weatherInfo.main.feels_like)
+        feelsLikeText.text = FEELS_LIKE + formatDegrees(feelsLikeCalvinDegrees)
     }
 
     private fun formatDegrees(degrees: Double): String {

@@ -77,7 +77,7 @@ class WeatherInteractor(private val context: Context) {
         return ""
     }
 
-    private fun convertToCalvin(fahrenheitDegrees: Double): Double {
+    fun convertToCalvin(fahrenheitDegrees: Double): Double {
         return fahrenheitDegrees - 273.15
     }
 

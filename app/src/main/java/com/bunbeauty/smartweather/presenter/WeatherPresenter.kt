@@ -26,4 +26,8 @@ class WeatherPresenter(private val weatherInteractor: WeatherInteractor) :
         viewState.showWeather(weatherInfo)
         viewState.showAdvice(weatherInteractor.getAdvice(weatherInfo))
     }
+
+    fun convertToCalvin(fahrenheitDegrees: Double): Double {
+        return weatherInteractor.convertToCalvin(fahrenheitDegrees)
+    }
 }
